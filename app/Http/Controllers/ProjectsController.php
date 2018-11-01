@@ -21,43 +21,61 @@ class ProjectsController extends Controller
         return view('projects.create');
     }
 
+     public function show(Project $project) 
+    {
+        return view('projects.show', compact('project'));
+    }
+
     public function store() 
     {
         // return request()->all();
 
         // Couple way to store data
 
-        $project = new Project();
-        $project->title = request('title');
-        $project->description = request('description');
-        $project->save();
+        // ВАРИАНТ 1
+        // $project = new Project();
+        // $project->title = request('title');
+        // $project->description = request('description');
+        // $project->save();
+
+        // ВАРИАНТ 2
+        Project::create([
+            'title' => request('title'),
+            'description' => request('description')
+        ]);
+
+        // ВАРИАНТ 3
+        Project::create(request(['title', 'description']));
 
         return redirect('/projects'); // Laravel Helpers
     }
 
-    public function edit($id) 
+    public function edit(Project $project) 
     {
         // return $id;
-        $project = Project::find($id);
         return view('projects.edit', compact('project'));
     }
 
-    public function update($id) 
+    public function update(Project $project) 
     {
         // dd('im debugger!');
         // dd(request()->all());
-        $project = Project::find($id);
-        $project->title = request('title');
-        $project->description = request('description');
-        $project->save();
+
+        // ВАРИАНТ 1
+        // $project->title = request('title');
+        // $project->description = request('description');
+        // $project->save();
+        
+        // ВАРИАНТ 1
+        $project->update(request(['title', 'description']));
 
         return redirect('/projects');
     }
-    public function destroy($id) 
+    public function destroy(Project $project) 
     {
         // dd('im debugger!');
         // dd(request()->all());
-        Project::findOrFail($id)->delete();
+        $project->delete();
         // $project->title = request('title');
         // $project->description = request('description');
         // $project->save();

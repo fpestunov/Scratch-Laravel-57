@@ -129,7 +129,36 @@ Project::find($id) // 5000 - ошибка Ларавела
 Project::findOrFail($id) // Красивая 404 ошибка
 
 #15 Cleaner Controllers and Mass Assignment Concerns
+* route model binding
+* mass assignment
 
+https://laravel.com/docs/5.7/routing#route-model-binding
+    public function show($id) 
+    {
+        $project = Project::findOrFail($id);
+        return $project;
+    }
+    
+    public function show(Project $project) 
+    {
+        return $project;
+    }
+
+Much cleaner?!
+
+Улучшаем store()
+
+Project::create([...]);
++
+protected $fillable = [...];
+
+или  protected $guarded = []; // храним поля, кт необходимо защитить от обновлений
++
+!! показал, как в браузере добавил поле и request()->all() приняло его, ОГО!
+
+3 (три) варианта сохранения результатов
+request('title'); // возвращает строку
+request(['title']); // возвращает ассоциативный массив и значение
 
 #16 
 #17 
