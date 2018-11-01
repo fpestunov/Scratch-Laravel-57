@@ -173,5 +173,19 @@ helper function old('title') - хранит введенные значения 
 ПОЛЕЗНОЕ В ВАЛИДАЦИИ:
 https://laravel.com/docs/5.7/validation#available-validation-rules
 
-#17 
-#18 
+#17 Your First Eloquent Relationships
+Project HAS Tasks
+Task BELONG Project
+
+php artisan help make:model
+php artisan make:model Task -m -f // добавит - Модель, Фабрику, Миграцию
+php artisan migrate
+php artisan tinker
+App\Project()::first();
+App\Project::first()->tasks;
+App\Task()::first();
+App\Task::first()->project;
+
+
+#18 Form Action Considerations
+
