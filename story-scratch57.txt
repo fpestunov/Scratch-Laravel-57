@@ -160,6 +160,18 @@ protected $fillable = [...];
 request('title'); // возвращает строку
 request(['title']); // возвращает ассоциативный массив и значение
 
-#16 
+#16 Two Layers of Validation
+"guilty until proven innocent."
+https://laravel.com/docs/5.7/validation
+
+
+First level - Client-side (frontend) validation <input required>
+Second level - Server-side (backend) validation
+
+helper function old('title') - хранит введенные значения формы
+
+ПОЛЕЗНОЕ В ВАЛИДАЦИИ:
+https://laravel.com/docs/5.7/validation#available-validation-rules
+
 #17 
 #18 

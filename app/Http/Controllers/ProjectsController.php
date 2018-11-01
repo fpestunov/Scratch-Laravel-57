@@ -30,6 +30,11 @@ class ProjectsController extends Controller
     {
         // return request()->all();
 
+        $attributes = request()->validate([
+            'title' => ['required', 'min:3', 'max:255'],
+            'description' => 'required',
+        ]);
+
         // Couple way to store data
 
         // ВАРИАНТ 1
@@ -39,13 +44,14 @@ class ProjectsController extends Controller
         // $project->save();
 
         // ВАРИАНТ 2
-        Project::create([
-            'title' => request('title'),
-            'description' => request('description')
-        ]);
+        // Project::create([
+        //     'title' => request('title'),
+        //     'description' => request('description')
+        // ]);
 
         // ВАРИАНТ 3
-        Project::create(request(['title', 'description']));
+        // Project::create(request(['title', 'description']));
+        Project::create($attributes);
 
         return redirect('/projects'); // Laravel Helpers
     }
