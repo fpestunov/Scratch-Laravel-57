@@ -1,0 +1,136 @@
+#2 Initial Setup Requirements
+which composer // дает путь к файлу
+
+#3 Basic Routing
+https://laravel.com/docs/5.7/artisan
+php artisan  
+php artisan server
+
+Routing 
+https://laravel.com/docs/5.7/routing
+
+#4 Blade Layout Files
+https://laravel.com/docs/5.7/blade
+
+#5 Sending Data to Your Views
+https://laravel.com/docs/5.7/views#passing-data-to-views
+{{ $foo }} // вырезает опасные символы
+{!! $foo !!} // оставляет опасные символы
+
+#6 Controllers 101
+https://laravel.com/docs/5.7/controllers 
+php artisan make:controller PagesController
+Зачем?
+- чище файл 'путей'
+
+#7 Databases and Migrations
+https://laravel.com/docs/5.7/database
+https://laravel.com/docs/5.7/migrations
+https://laravel-news.com/laravel-5-4-key-too-long-error
+php artisan migrate
+php artisan migrate:rollback // откатывает ПОСЛЕДНЮЮ миграцию
+php artisan migrate:fresh // удаляет таблицы и создает заново
+php artisan make:migration NameMigration
+
+php artisan make:migration create_projects_table
+
+#8 Eloquent, Namespacing, and MVC
+Eloquent - active record implementation
+У нас есть миграция (таблица) projects, создадим модель project.
+php artisan make:model project
+https://laravel.com/docs/5.7/eloquent // описание моделей в разделе Eloquent
+
+php artisan tinker // Playground PHP
+App\Project::all();
+$project = new App\Project;
+$project.title = 'Go to store';
+$project.description = 'Buy something...';
+$project.save();
+App\Project::first()->title;
+
+Работа с коллекциями. Они как массив.
+
+App\Project::all()->map->title; // выведет все title из таблицы
+
+Итак, мы изучили MVC
+
+php artisan make:controller ProjectsController
+
+Google JSON Formatter
+
+#10 Directory Structure Review
+/routes/console.php - tinker
+/database/factories
+factory(App\User::class)->make(); // в консоли Tinker
+factory(App\User::class)->create(); // в базе данных
+
+ServiceProvider - важная тема!!! необходимо понять!!!
+
+#11 Form Handling and CSRF Protection
+https://laravel.com/docs/5.7/csrf
+
+Requests
+https://laravel.com/docs/5.7/requests
+
+Helpers,
+return redirect('URI');
+https://laravel.com/docs/5.7/helpers
+App/Http/Cernel.php - в web/middleware подключается csrf проверка, если закоментить, то не будет работать
+
+#12 Routing Conventions Worth Following
+https://laravel.com/docs/5.7/controllers#resource-controllers
+
+Проекты. Рассмотрим варианты путей.
+/*
+    GET /projects (index) - отображение проектов
+    GET /projects/create (create) - форма добавления проекта
+    GET /projects/1 (show) - страница проекта
+    GET /projects/1 (edit) - страница редактирования проекта
+    POST /projects (store) - добавление
+    PATCH /projects (update) - изменение
+    DELETE /projects/1 (destroy) - удаление
+
+    7 действий = 7 route methods
+
+    // список путей
+    php artisan route:list
+
+    // АЛЬТЕРНАТИВА
+    Route::resource('projects', 'ProjectsController');
+
+    // Контроллер генерируем 
+    // Контроллер генерируем 
+    php artisan make:controller ProjectsController -r
+
+    // Контроллер генерируем с моделью, и в контроллере есть связывание с моделью в методах, ВСЕ ГОТОВО!
+    php artisan make:controller ProjectsController -r -m Project
+*/
+
+#13 Faking PATCH and DELETE Requests
+https://laravel.com/docs/5.7/routing#form-method-spoofing
+
+Работаем с Resource Controller
+
+!! Нет сниппетов и очень не удобно
+
+dd('im debugger!') // very quick debugging
+
+#14 Form Delete Requests
+
+Длинная запись
+{{ method_field('DELETE') }}
+{{ csrf_field() }}
+
+Короткая запись, используя BLADE
+@method('DELETE')
+@csrf
+
+Project::find($id) // 5000 - ошибка Ларавела
+Project::findOrFail($id) // Красивая 404 ошибка
+
+#15 Cleaner Controllers and Mass Assignment Concerns
+
+
+#16 
+#17 
+#18 
