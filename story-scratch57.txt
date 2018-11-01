@@ -188,4 +188,9 @@ App\Task::first()->project;
 
 
 #18 Form Action Considerations
+php artisan make:controller ProjectTasksController
+
+- выделяем элемент в дереве ДОМ
+- в консоли $0.submit
+
 
