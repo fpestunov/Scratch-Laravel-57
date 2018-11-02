@@ -15,4 +15,18 @@ class project extends Model
     {
         return $this->hasMany(Task::class);
     }
+
+    public function addTask($task)
+    {
+        // Вариант 2
+        // Eloquent, см метод выше в этой модели
+        $this->tasks()->create($task);
+
+
+        // Вариант 1
+        // return Task::create([
+        //     'project_id' => $this->id,
+        //     'description' => $description
+        // ]);
+    }
 }

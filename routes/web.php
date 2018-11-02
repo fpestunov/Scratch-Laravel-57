@@ -20,6 +20,7 @@ Route::resource('projects', 'ProjectsController');
 // Route::get('/projects/create', 'ProjectsController@create');
 
 Route::patch('/tasks/{task}', 'ProjectTasksController@update');
+Route::post('/projects/{project}/tasks', 'ProjectTasksController@store');
 
 Route::get('/old-home', function () {
     $tasks = [
