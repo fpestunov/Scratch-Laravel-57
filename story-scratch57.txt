@@ -211,9 +211,19 @@ php artisan make:controller ProjectTasksController
 Вывод ошибок валидации, стандартный блок, что с ним делаем? Выносим:
 @include('errors')
 
-# 18 
-# 18 
-# 18 
-# 18 
-# 18 
-# 18 
+# 19 Better Encapsulation
+So with that in mind, let's review our controller and review in which areas we might improve encapsulation and flexibility.
+
+В контроллере ProjectTask мы обновляем модель Task напрямую. Инкапсуляция предлагает перенести это в модель.
+$task->complete(); - метод и никому нет дела, как это делается. это контроллер. здесь должно быть минимум мусора
+
+Encapsulation: Hide internal state and values inside a class!
+
+И, перенеся все в модели, мы можем видеть, что он может делать.
+
+
+# 20 
+# 21 
+# 22 
+# 23 
+# 24 
