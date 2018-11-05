@@ -7,9 +7,17 @@ use Illuminate\Http\Request;
 
 class ProjectsController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth');
+        $this->middleware('auth')->only(['store', 'update']);
+        $this->middleware('auth')->except(['show']);
+    }
+
     public function index() 
     {
-        $projects = Project::all();
+        $projects = Project::where('owner_id', auth()->id())->get(); // select * from projects where owner_id=3
+        // $projects = Project::all();
 
         // return $projects;
 
@@ -32,8 +40,9 @@ class ProjectsController extends Controller
 
         $attributes = request()->validate([
             'title' => ['required', 'min:3', 'max:255'],
-            'description' => 'required',
+            'description' => 'required'
         ]);
+        // dd($attributes+ ['owner_id' => auth()->id()]);
 
         // Couple way to store data
 
@@ -51,7 +60,14 @@ class ProjectsController extends Controller
 
         // ВАРИАНТ 3
         // Project::create(request(['title', 'description']));
+
+        // ВАРИАНТ А. Добавляем атрибут        
+        // Project::create($attributes + ['owner_id' => auth()->id()]);
+
+        // ВАРИАНТ Б. Добавляем атрибут, using Eloquent
+        $attributes['owner_id'] = auth()->id();
         Project::create($attributes);
+
 
         return redirect('/projects'); // Laravel Helpers
     }
